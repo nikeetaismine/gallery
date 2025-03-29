@@ -21,10 +21,5 @@ pipeline {
                 sh 'node server.js &'
             }
         }
-        stage('Deploying ...') {
-            steps {
-                sh 'npm start'
-            }
-        }
     }
 }
