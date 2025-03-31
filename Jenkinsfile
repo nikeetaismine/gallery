@@ -41,16 +41,16 @@ pipeline {
             script {
                 def buildId = "${env.BUILD_NUMBER}"
                 def renderUrl = credentials('RENDER_URL')
-                def message = "  *Deployment Successful!* \n\n  
-                *Build Number:* ${buildId} \n\n  
-                *Project:* ${env.JOB_NAME} \n\n  
-                *Live Site:* <${renderUrl}| Click Here to View> \n\n"
+                def message = "  *Deployment Successful!*  
+                *Build Number:* ${buildId}
+                *Project:* ${env.JOB_NAME} 
+                *Live Site:* <${renderUrl}| Click Here to View> "
 
-                sh "
+                sh """
                     curl -X POST -H 'Content-type: application/json' --data '{
                         \"text\": \"${message}\"
                     }' $SLACK_WEBHOOK_URL
-                "
+                """
             }
         }
 		failure {
