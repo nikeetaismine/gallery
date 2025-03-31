@@ -23,12 +23,6 @@ pipeline {
                 sh 'node server.js &'
             }
         }
-        stage("Deploying to Heroku") {
-            steps {
-                withCredentials([usernameColonPassword(credentialsId: 'heroku', variable: 'HEROKU_AUTH')]) {
-                    sh 'git push https://${HEROKU_AUTH}@git.heroku.com/nikeetaismine.git master'
-                }
-            }
-        }
+        
     }
 }
