@@ -37,6 +37,22 @@ pipeline {
         }
     }
 	post {
+        success{
+            script {
+                def buildId = "${env.BUILD_NUMBER}"
+                def renderUrl = credentials('RENDER_URL')
+                def message = "  *Deployment Successful!* \n\n  
+                *Build Number:* ${buildId} \n\n  
+                *Project:* ${env.JOB_NAME} \n\n  
+                *Live Site:* <${renderUrl}| Click Here to View> \n\n"
+
+                sh "
+                    curl -X POST -H 'Content-type: application/json' --data '{
+                        \"text\": \"${message}\"
+                    }' $SLACK_WEBHOOK_URL
+                "
+            }
+        }
 		failure {
 			emailext subject: "Jenkins Test Failure!",
 			body: "Tests failed for ${env.JOB_NAME} #${env.BUILD_NUMBER}. \nCheck Jenkins logs for details.",
