@@ -25,7 +25,14 @@ pipeline {
         }
         stage('Running tests') {
             steps {
-                sh 'npm test'
+                script {
+                    try {
+                        sh 'npm test'
+                    } catch (Exception e) {
+                        currentBuild.result = 'FAILURE'
+                        throw e
+                    }
+                }
             }
         }
     }
