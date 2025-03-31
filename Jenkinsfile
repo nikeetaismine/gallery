@@ -29,4 +29,12 @@ pipeline {
             }
         }
     }
+	post {
+		failure {
+			emailext subject: "Jenkins Test Failure!",
+			body: "Tests failed for ${env.JOB_NAME} #${env.BUILD_NUMBER}. \nCheck Jenkins logs for details.",
+			to: "denise.mwangi@student.moringaschool.com",
+			from: "jenkins@galleryexample.com"
+		}
+	}
 }
