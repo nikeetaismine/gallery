@@ -13,7 +13,9 @@ pipeline {
         }
         stage('Installing dependencies') {
             steps {
+                sh 'rm -rf package-lock.json node_modules'
                 sh 'npm install'
+
             }
         }
         stage("Running the server") {
