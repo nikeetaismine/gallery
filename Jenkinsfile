@@ -18,11 +18,15 @@ pipeline {
 
             }
         }
-        stage("Running the server") {
+        stage("Deploying/running the project") {
             steps {
                 sh 'node server.js &'
             }
         }
-        
+        stage('Running tests') {
+            steps {
+                sh 'npm test'
+            }
+        }
     }
 }
